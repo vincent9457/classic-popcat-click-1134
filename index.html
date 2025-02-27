@@ -3,10 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <title>POPCAT CLASSIC</title>
+    <style>
+        body {
+            /*字型 sans-serif*/
+            font-family: sans-serif;
+            /*body box 編距為0*/
+            margin: 0;
+        }
+
+        .container {
+            /*容器樣式 背景顏色 #bdaa90*/
+            background-color: #bdaa90;
+            /*防止文字被選取*/
+            user-select: none;
+            /*容器 box 高度100vh flex排版方向column 置中*/
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .title {
+            /*標題 box 寬度80% 上方間距 2em* 最大寬度 600px*/
+            width: 80%;
+            margin-top: 2em;
+            max-width: 600px;
+        }
+
+        .cat-img {
+            /*文字 div 排版填滿剩餘空間*/
+            flex: 1;
+            /*文字 box 寬度100%* 最大寬度 800px*/
+            width: 100%;
+            max-width: 800px;
+            /*文字樣式 文字置中 文字白色 大小80px -webkit-text-stroke 3px 黑色*/
+            color: white;
+            font-size: 80px;
+            font-weight: 900;
+            text-align: center;
+            -webkit-text-stroke: 3px black;
+        }
+
+        #p {
+            /*文字 div 背景圖片 用 id=p 設定imgs/p.png 圖片靠下 填滿容器contain 不重複*/
+            background-image: url('imgs/p.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center bottom;
+        }
+
+        #op {
+            /*新增文字 div 背景圖片 用 id=op 設定 imgs/op.png*/
+            background-image: url('imgs/op.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center bottom;
+        }
+    </style>
 </head>
 <body>
 
-<img src="imgs/popcat.svg" alt="popcat"/>
-<div class="cat-img" id="p">0</div>
+<!--新增容器去包裹標題圖片與點擊數-->
+<div class="container">
+    <img class="title" src="imgs/popcat.svg" alt="popcat"/>
+    <div class="cat-img" id="p">0</div>
+</div>
+
+<script>
+    // 計數器初始化
+    let count = 0;
+    // 寫一個function 計數器累加
+    function addCount() {
+        count++;
+    }
+    // 註冊滑鼠按下的事件，呼叫計數器累加 function
+    document.addEventListener('mousedown', function () {
+        addCount();
+        // 更新計數器的顯示
+        document.getElementById('p').textContent = count;
+        // 切換張嘴圖片
+        document.getElementById('p').id = 'op';
+        // 播放pops/pop1.mp3音效
+        let audio = new Audio('pops/pop1.mp3')
+        audio.play();
+    });
+    // 當滑鼠放開，切換閉嘴圖片
+    document.addEventListener('mouseup', function () {
+        document.getElementById('op').id = 'p';
+    });
+</script>
+
 </body>
 </html>
